@@ -512,40 +512,18 @@
                     </div>
                 </div>
 
+                <!-- Campos ocultos do Formspree -->
+                <input type="hidden" name="_subject" value="Nova resposta - Avaliação Nutricional">
+                <input type="text" name="_gotcha" style="display:none">
+
                 <div class="btn-container">
                     <button id="submitBtn" class="btn-submit" type="button" onclick="enviarFormulario()">
                         <i class="fa-solid fa-paper-plane" style="margin-right: 10px;"></i> Finalizar Avaliação
                     </button>
                 </div>
                 <div id="statusMsg" class="status-msg"></div>
-              <input type="hidden" name="_subject" value="Nova resposta - Avaliação Nutricional">
-  <input type="text" name="_gotcha" style="display:none">
-  <input type="hidden" name="_next" value="https://seusite.com/obrigado.html">
-  <!-- Troque o link acima pela sua página de obrigado -->
 
-                <!-- Botão de Envio -->
-                <div class="question-group" style="text-align: center; margin-top: 40px;">
-                    <button type="submit" style="
-                        background: var(--primary); 
-                        color: white; 
-                        border: none; 
-                        padding: 18px 50px; 
-                        font-size: 18px; 
-                        font-weight: 600; 
-                        border-radius: var(--radius-md); 
-                        cursor: pointer; 
-                        box-shadow: var(--shadow-sm);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--primary)'">
-                        <i class="fa-solid fa-paper-plane"></i> Enviar Respostas
-                    </button>
-                </div>
-                
-                <!-- Campos ocultos do Formspree -->
-                <input type="hidden" name="_subject" value="Nova resposta - Avaliação Nutricional">
-                <input type="text" name="_gotcha" style="display:none">
-
-</form>
+            </form>
         </section>
 
         <!-- Success Page -->
@@ -597,7 +575,7 @@
 </div>
 
 <script>
-const FORM_ENDPOINT = ''; 
+const FORM_ENDPOINT = 'https://formspree.io/f/xykoygae'; 
 
 function toggleOther(containerId, isChecked) {
     const container = document.getElementById(containerId);
