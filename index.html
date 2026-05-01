@@ -8,20 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Cores extraídas do seu logo */
-            --primary: #3a5a40;      /* Verde Musgo do Logo */
-            --accent: #c5a059;       /* Dourado/Bronze do Logo */
-            --bg-glow: #a8bc94;      /* Verde claro do fundo do logo */
+            --primary: #3a5a40;      /* Verde Musgo */
+            --primary-light: #588157;
+            --accent: #c5a059;       /* Dourado/Bronze */
             --text-dark: #1e2d1f;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --radius: 20px;
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --radius: 24px;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             margin: 0; font-family: 'Inter', sans-serif;
-            /* Fundo inspirado no fundo do seu logo */
             background: radial-gradient(circle at center, #cbd9bc 0%, #a8bc94 100%);
             color: var(--text-dark);
             display: flex; align-items: center; justify-content: center;
@@ -30,30 +28,28 @@
 
         .app-container { width: 100%; max-width: 450px; }
 
-        /* Estilização do Logo */
         .logo-container { text-align: center; margin-bottom: 20px; }
         .logo-container img { 
-            max-width: 180px; 
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            max-width: 170px; 
+            height: auto;
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.12));
             border-radius: 50%;
         }
 
-        /* Barra de Progresso Dourada */
         .progress-wrapper { margin-bottom: 25px; padding: 0 10px; }
         .progress-track { height: 4px; background: rgba(0,0,0,0.05); border-radius: 10px; }
         .progress-bar { 
-            height: 100%; background: var(--accent); width: 20%; 
+            height: 100%; background: var(--accent); width: 25%; 
             transition: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
-            box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
         }
 
-        /* Card Principal */
         .card {
             background: var(--card-bg); padding: 40px 30px;
             border-radius: var(--radius);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255,255,255,0.5);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
         }
 
         .step { display: none; animation: fadeIn 0.5s ease forwards; }
@@ -67,26 +63,30 @@
         h1 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); margin: 0 0 10px; text-align: center; }
         .subtitle { font-size: 14px; color: #555; text-align: center; margin-bottom: 30px; }
 
-        /* Inputs Premium */
         .label-text { display: block; font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
+        
         .input-premium {
-            width: 100%; border: 1px solid #ddd; border-radius: 12px;
-            padding: 15px; font-size: 16px; outline: none; transition: 0.3s;
+            width: 100%; border: 1px solid #ddd; border-radius: 14px;
+            padding: 16px; font-size: 16px; outline: none; transition: 0.3s;
             background: #fdfdfd; margin-bottom: 20px;
         }
         .input-premium:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1); }
 
-        /* Opções Clicáveis */
         .option-card {
             display: flex; align-items: center; padding: 16px; 
-            border: 1px solid #eee; border-radius: 15px; margin-bottom: 12px;
+            border: 1px solid #eee; border-radius: 16px; margin-bottom: 12px;
             cursor: pointer; transition: 0.2s; background: white;
+            font-size: 15px;
         }
         .option-card:hover { border-color: var(--primary); }
-        .option-card.selected { border-color: var(--primary); background: #f4f7f0; border-width: 2px; }
-        input[type="radio"] { accent-color: var(--primary); margin-right: 15px; width: 18px; height: 18px; }
+        input[type="radio"] { accent-color: var(--primary); margin-right: 12px; width: 18px; height: 18px; }
 
-        /* Botões */
+        /* Estilo para o campo Outro */
+        .other-container {
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
+        }
+        .other-container.show { max-height: 100px; margin-top: 5px; }
+
         .nav-buttons { display: flex; gap: 12px; margin-top: 20px; }
         .btn {
             padding: 18px; border-radius: 50px; border: none;
@@ -102,6 +102,7 @@
         /* Resultado Final */
         .res-imc { font-size: 54px; font-weight: 700; color: var(--primary); margin: 10px 0; }
         .res-badge { background: var(--accent); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 800; }
+        .insight-box { background: #f4f7f0; padding: 20px; border-radius: 18px; text-align: left; border: 1px solid #e0eee0; margin-top: 20px; }
 
         .hidden { display: none !important; }
     </style>
@@ -110,8 +111,8 @@
 
 <div class="app-container">
     <div class="logo-container">
-        <!-- Coloque o arquivo logo.png na mesma pasta do seu site -->
-        <img src="logo.png" alt="Cheios de Vida Logo" onerror="this.src='https://via.placeholder.com/150?text=CHEIOS+DE+VIDA'">
+        <!-- O arquivo deve se chamar logo.png e estar na mesma pasta -->
+        <img src="logo.png" alt="Cheios de Vida" onerror="this.src='https://via.placeholder.com/170x170?text=CHEIOS+DE+VIDA'">
     </div>
 
     <div id="quiz-ui">
@@ -124,7 +125,7 @@
                 <!-- Passo 1 -->
                 <div class="step active" id="st1">
                     <h1>Bem-vindo à sua transformação.</h1>
-                    <p class="subtitle">Vamos iniciar seu diagnóstico de saúde.</p>
+                    <p class="subtitle">Vamos iniciar sua avaliação nutricional.</p>
                     <span class="label-text">Nome Completo</span>
                     <input type="text" class="input-premium" id="inp_nome" placeholder="Seu nome aqui">
                 </div>
@@ -143,9 +144,14 @@
                 <div class="step" id="st3">
                     <h1>Seu Objetivo.</h1>
                     <p class="subtitle">O que é prioridade para você agora?</p>
-                    <label class="option-card"><input type="radio" name="goal" value="Emagrecimento"> Emagrecimento Saudável</label>
-                    <label class="option-card"><input type="radio" name="goal" value="Massa"> Ganho de Massa Magra</label>
-                    <label class="option-card"><input type="radio" name="goal" value="Saude"> Vitalidade e Disposição</label>
+                    <label class="option-card" onclick="toggleOther(false)"><input type="radio" name="goal" value="Emagrecimento"> Emagrecimento Saudável</label>
+                    <label class="option-card" onclick="toggleOther(false)"><input type="radio" name="goal" value="Massa"> Ganho de Massa Magra</label>
+                    <label class="option-card" onclick="toggleOther(false)"><input type="radio" name="goal" value="Saude"> Vitalidade e Disposição</label>
+                    <label class="option-card" onclick="toggleOther(true)"><input type="radio" name="goal" value="Outro"> Outro Objetivo</label>
+                    
+                    <div id="otherInputArea" class="other-container">
+                        <input type="text" class="input-premium" id="inp_outro" placeholder="Descreva seu foco aqui...">
+                    </div>
                 </div>
 
                 <!-- Passo 4 -->
@@ -173,8 +179,8 @@
             <div class="res-imc" id="out_imc">0.0</div>
             <p id="out_cat" style="color: var(--primary); font-weight: 700; text-transform: uppercase; margin: 0 0 20px;"></p>
             
-            <div style="background: #f4f7f0; padding: 20px; border-radius: 15px; text-align: left; border: 1px solid #e0eee0;">
-                <h4 style="margin: 0 0 10px; color: var(--primary); font-size: 14px;">Observação do Especialista:</h4>
+            <div class="insight-box">
+                <h4 style="margin: 0 0 10px; color: var(--primary); font-size: 14px;"><i class="fa-solid fa-leaf"></i> Observação do Especialista:</h4>
                 <p id="out_txt" style="font-size: 13px; line-height: 1.6; color: #444; margin: 0;"></p>
             </div>
 
@@ -190,6 +196,12 @@
     const totalSteps = 4;
     const WEB3_KEY = "d18eecd4-ae6a-46b6-a4ff-7a71ad137962";
 
+    function toggleOther(show) {
+        const area = document.getElementById('otherInputArea');
+        if(show) area.classList.add('show');
+        else area.classList.remove('show');
+    }
+
     function next(n) {
         if (n === 1 && !validate()) return;
         document.getElementById(`st${currentStep}`).classList.remove('active');
@@ -202,6 +214,11 @@
     function validate() {
         if(currentStep === 1 && !document.getElementById('inp_nome').value) return false;
         if(currentStep === 2 && (!document.getElementById('inp_peso').value || !document.getElementById('inp_altura').value)) return false;
+        if(currentStep === 3) {
+            const sel = document.querySelector('input[name="goal"]:checked');
+            if(!sel) return false;
+            if(sel.value === 'Outro' && !document.getElementById('inp_outro').value) return false;
+        }
         return true;
     }
 
@@ -216,43 +233,49 @@
         btn.disabled = true;
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
+        const objetivoBase = document.querySelector('input[name="goal"]:checked').value;
+        const objetivoFinal = objetivoBase === 'Outro' ? "Outro: " + document.getElementById('inp_outro').value : objetivoBase;
+
         const data = {
             access_key: WEB3_KEY,
             Nome: document.getElementById('inp_nome').value,
             Peso: document.getElementById('inp_peso').value,
             Altura: document.getElementById('inp_altura').value.replace(',', '.'),
-            Objetivo: document.querySelector('input[name="goal"]:checked')?.value,
+            Objetivo: objetivoFinal,
             Rotina: document.querySelector('input[name="fit"]:checked')?.value,
-            subject: "Nova Avaliação: " + document.getElementById('inp_nome').value
+            subject: "Nova Avaliação Cheios de Vida - " + document.getElementById('inp_nome').value
         };
 
         const imc = (data.Peso / (data.Altura * data.Altura)).toFixed(1);
 
         try {
-            await fetch("https://api.web3forms.com/submit", {
+            const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({...data, IMC_Calculado: imc})
+                body: JSON.stringify({...data, IMC: imc})
             });
-            showResult(data.Nome, imc, data.Objetivo);
+            if(response.ok) {
+                showResult(data.Nome, imc, objetivoFinal);
+            } else {
+                throw new Error();
+            }
         } catch (e) {
-            alert("Erro ao enviar.");
+            alert("Ocorreu um erro ao enviar. Verifique sua conexão.");
             btn.disabled = false;
+            btn.innerText = "Finalizar";
         }
     }
 
     function showResult(nome, imc, obj) {
         document.getElementById('quiz-ui').classList.add('hidden');
         document.getElementById('result-ui').classList.remove('hidden');
-        document.getElementById('out_nome').innerText = nome;
+        document.getElementById('out_nome').innerText = nome.split(' ')[0];
         document.getElementById('out_imc').innerText = imc;
         
         let cat = imc < 18.5 ? "Abaixo do Peso" : imc < 25 ? "Peso Saudável" : imc < 30 ? "Sobrepeso" : "Obesidade";
         document.getElementById('out_cat').innerText = cat;
         
-        let msg = obj === "Emagrecimento" 
-            ? "Para o seu objetivo de emagrecimento, focaremos em reequilíbrio metabólico. Seu IMC de " + imc + " nos dá uma excelente base para começar."
-            : "Focaremos em aumentar sua vitalidade e energia diária através da nutrição funcional.";
+        let msg = "Para o seu objetivo de " + obj + ", focaremos em reequilíbrio e vitalidade. Seu IMC de " + imc + " é o nosso ponto de partida para sua nova rotina Cheios de Vida.";
         document.getElementById('out_txt').innerText = msg;
     }
 </script>
