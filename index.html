@@ -3,266 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação Nutricional Profissional</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>Avaliação Nutricional - Cheios de Vida</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4a6741;
-            --primary-light: #74895a;
-            --secondary: #c8a96a;
-            --secondary-dark: #a68442;
-            --bg-body: #f9fbf7;
-            --bg-card: #ffffff;
-            --text-main: #2d3427;
-            --text-muted: #6d7b5f;
-            --border-color: #e2e8da;
-            --success: #3f7d3a;
-            --danger: #c53030;
-            --shadow-md: 0 10px 30px rgba(74, 103, 65, 0.08);
-            --radius-lg: 24px;
-            --radius-md: 16px;
+            --primary: #3a5a40; /* Verde Natureza Profundo */
+            --primary-light: #588157;
+            --accent: #e67e22;  /* Laranja Vitalidade */
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-muted: #7f8c8d;
+            --radius: 16px;
+            --shadow: 0 15px 35px rgba(58, 90, 64, 0.1);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             margin: 0; font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body); color: var(--text-main);
-            line-height: 1.6; padding: 20px 15px;
-            background-image: radial-gradient(circle at 0% 0%, rgba(200, 169, 106, 0.05) 0%, transparent 25%);
+            background-color: var(--bg); color: var(--text);
+            display: flex; align-items: center; justify-content: center;
+            min-height: 100vh;
         }
 
-        .container { max-width: 800px; margin: 0 auto; }
-
-        .header {
-            text-align: center; margin-bottom: 40px; padding: 40px 20px;
-            background: var(--bg-card); border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
+        .app-wrapper {
+            width: 100%; max-width: 480px; padding: 20px;
         }
 
-        .header h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 6vw, 42px); color: var(--primary); margin: 0; }
+        /* Branding Superior */
+        .brand-header {
+            text-align: center; margin-bottom: 25px;
+        }
+        .brand-header span {
+            font-family: 'Playfair Display', serif; font-size: 22px;
+            color: var(--primary); letter-spacing: -0.5px;
+        }
+        .brand-header .dot { color: var(--accent); }
 
-        .badge {
-            display: inline-block; background: rgba(200, 169, 106, 0.15);
-            color: var(--secondary-dark); padding: 6px 16px; border-radius: 50px;
-            font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;
+        /* Barra de Progresso Estilizada */
+        .prog-container { margin-bottom: 25px; }
+        .prog-track { height: 6px; background: #e0e0e0; border-radius: 10px; overflow: hidden; }
+        .prog-bar { 
+            height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-light)); 
+            width: 20%; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
         }
 
+        /* Card de Conteúdo */
         .card {
-            background: var(--bg-card); border-radius: var(--radius-lg);
-            padding: 40px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
-            margin-bottom: 30px;
+            background: var(--card-bg); padding: 40px 30px;
+            border-radius: var(--radius); box-shadow: var(--shadow);
+            position: relative;
         }
 
-        .question-group { margin-bottom: 30px; }
-        .question-group h3 { font-size: 18px; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .question-group h3 span {
-            background: var(--primary); color: white; width: 26px; height: 26px;
-            display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 12px;
+        .step { display: none; animation: slideUp 0.5s ease forwards; }
+        .step.active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .input-text {
-            width: 100%; padding: 14px; border: 2px solid var(--border-color);
-            border-radius: var(--radius-md); font-size: 16px; transition: 0.3s;
-        }
-        .input-text:focus { outline: none; border-color: var(--secondary); }
+        h1 { font-family: 'Playfair Display', serif; font-size: 26px; margin: 0 0 12px; color: var(--primary); }
+        .subtitle { font-size: 15px; color: var(--text-muted); margin-bottom: 30px; line-height: 1.5; }
 
-        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-        .option-label {
-            display: flex; align-items: center; padding: 14px;
-            background: #fcfdfa; border: 2px solid var(--border-color);
-            border-radius: var(--radius-md); cursor: pointer; transition: 0.2s;
+        /* Estilização de Inputs */
+        .label-style { display: block; font-size: 12px; font-weight: 700; color: var(--primary-light); text-transform: uppercase; margin-bottom: 10px; }
+        
+        .input-premium {
+            width: 100%; border: 2px solid #f0f0f0; border-radius: 10px;
+            padding: 15px; font-size: 16px; outline: none; transition: 0.3s;
+            background: #fafafa; margin-bottom: 20px;
         }
-        input[type="radio"], input[type="checkbox"] { margin-right: 12px; accent-color: var(--primary); }
+        .input-premium:focus { border-color: var(--primary-light); background: #fff; box-shadow: 0 0 0 4px rgba(58, 90, 64, 0.05); }
 
-        .btn-submit {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white; border: none; padding: 18px; font-size: 18px;
-            font-weight: 700; border-radius: 50px; cursor: pointer; width: 100%; transition: 0.3s;
+        /* Opções Clicáveis */
+        .opt-card {
+            display: flex; align-items: center; padding: 16px; border: 2px solid #f0f0f0;
+            border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: 0.2s;
         }
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(74, 103, 65, 0.2); }
-        .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
+        .opt-card:hover { border-color: var(--primary-light); background: #fdfdfd; }
+        input[type="radio"] { width: 20px; height: 20px; margin-right: 15px; accent-color: var(--primary); }
+        .radio-checked { border-color: var(--primary) !important; background: #f4f7f0 !important; font-weight: 600; }
+
+        /* Botões */
+        .actions { display: flex; gap: 12px; margin-top: 20px; }
+        .btn {
+            padding: 18px 25px; border-radius: 50px; border: none;
+            font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 15px;
+        }
+        .btn-next { background: var(--primary); color: white; flex-grow: 2; box-shadow: 0 10px 20px rgba(58, 90, 64, 0.2); }
+        .btn-next:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-back { background: #eee; color: #777; flex-grow: 1; }
 
         /* Resultado */
-        .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
-        .result-card { background: #fcfdfa; border: 1px solid var(--border-color); padding: 15px; border-radius: var(--radius-md); text-align: center; }
-        .result-value { font-size: 22px; font-weight: 700; color: var(--primary); }
-        .insights-box { background: #f4f7f0; border-left: 5px solid var(--secondary); padding: 20px; border-radius: 8px; margin-top: 20px; }
-        
+        .result-box { text-align: center; }
+        .imc-tag { background: var(--accent); color: white; padding: 5px 15px; border-radius: 50px; font-size: 12px; font-weight: 800; }
+        .imc-value { font-size: 48px; font-weight: 700; color: var(--primary); margin: 15px 0; }
+        .insight-card { background: #f8fcf8; border: 1px solid #e0eee0; padding: 20px; border-radius: 12px; text-align: left; margin-top: 20px; }
+
         .hidden { display: none !important; }
-        #statusMsg { text-align: center; margin-top: 10px; font-weight: 600; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header class="header">
-        <span class="badge">Avaliação Profissional</span>
-        <h1>Seu Perfil Nutricional</h1>
-    </header>
+<div class="app-wrapper">
+    <div class="brand-header">
+        <span>Cheios de Vida<span class="dot">.</span></span>
+    </div>
 
-    <main>
-        <section id="formPage" class="card">
-            <form id="nutriForm">
-                <div class="question-group">
-                    <h3><span><i class="fa-solid fa-user"></i></span> Nome Completo</h3>
-                    <input class="input-text" id="nome" type="text" placeholder="Como podemos te chamar?" required>
+    <div id="formFlow">
+        <div class="prog-container">
+            <div class="prog-track"><div class="prog-bar" id="pBar"></div></div>
+        </div>
+
+        <div class="card">
+            <form id="mainForm">
+                <!-- Passo 1: Nome -->
+                <div class="step active" id="s1">
+                    <h1>Sua jornada começa aqui.</h1>
+                    <p class="subtitle">Primeiro, como podemos te chamar?</p>
+                    <span class="label-style">Nome Completo</span>
+                    <input type="text" class="input-premium" id="f_nome" placeholder="Seu nome aqui..." required>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="question-group">
-                        <h3><span>1</span> Peso (kg)</h3>
-                        <input class="input-text" id="peso" type="text" placeholder="Ex: 75.5">
-                    </div>
-                    <div class="question-group">
-                        <h3><span>2</span> Altura (m)</h3>
-                        <input class="input-text" id="altura" type="text" placeholder="Ex: 1.75">
+                <!-- Passo 2: Medidas -->
+                <div class="step" id="s2">
+                    <h1>Suas Medidas.</h1>
+                    <p class="subtitle">Esses dados são essenciais para o diagnóstico inicial.</p>
+                    <span class="label-style">Peso Atual (kg)</span>
+                    <input type="number" class="input-premium" id="f_peso" placeholder="Ex: 75">
+                    <span class="label-style">Altura (m)</span>
+                    <input type="text" class="input-premium" id="f_altura" placeholder="Ex: 1.75">
+                </div>
+
+                <!-- Passo 3: Objetivo -->
+                <div class="step" id="s3">
+                    <h1>O seu foco.</h1>
+                    <p class="subtitle">Qual o seu maior desejo hoje?</p>
+                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="obj" value="Emagrecimento"> Emagrecimento Consciente</label>
+                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="obj" value="Massa"> Ganho de Massa Magra</label>
+                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="obj" value="Vitalidade"> Mais Energia e Saúde</label>
+                </div>
+
+                <!-- Passo 4: Atividade -->
+                <div class="step" id="s4">
+                    <h1>Seu Movimento.</h1>
+                    <p class="subtitle">Como você descreveria sua rotina?</p>
+                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="ativ" value="Sedentario"> Pouco Ativo</label>
+                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="ativ" value="Moderado"> Ativo (3-5x por semana)</label>
+                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="ativ" value="Intenso"> Alta Performance / Atleta</label>
+                </div>
+
+                <!-- Passo 5: Envio -->
+                <div class="step" id="s5">
+                    <h1>Tudo pronto!</h1>
+                    <p class="subtitle">Sua avaliação está pronta para ser processada pela nossa equipe.</p>
+                    <div style="text-align: center; color: var(--primary);">
+                        <i class="fa-solid fa-heart-pulse" style="font-size: 50px; margin-bottom: 20px;"></i>
+                        <p style="font-size: 13px; font-weight: 500;">Clique no botão abaixo para ver seu diagnóstico e enviar os dados.</p>
                     </div>
                 </div>
 
-                <div class="question-group">
-                    <h3><span>3</span> Objetivo Principal</h3>
-                    <div class="options-grid">
-                        <label class="option-label"><input type="radio" name="objetivo" value="Emagrecimento"> Emagrecimento</label>
-                        <label class="option-label"><input type="radio" name="objetivo" value="Hipertrofia"> Ganho de Massa Muscular</label>
-                        <label class="option-label"><input type="radio" name="objetivo" value="Saude"> Saúde e Longevidade</label>
-                    </div>
+                <div class="actions">
+                    <button type="button" class="btn btn-back hidden" id="bBtn" onclick="move(-1)">Voltar</button>
+                    <button type="button" class="btn btn-next" id="nBtn" onclick="move(1)">Continuar</button>
                 </div>
-
-                <div class="question-group">
-                    <h3><span>4</span> Nível de Atividade Física</h3>
-                    <div class="options-grid">
-                        <label class="option-label"><input type="radio" name="atividade" value="Sedentario"> Sedentário (Pouco movimento)</label>
-                        <label class="option-label"><input type="radio" name="atividade" value="Moderado"> Moderado (3x na semana)</label>
-                        <label class="option-label"><input type="radio" name="atividade" value="Intenso"> Intenso (Atleta / Diário)</label>
-                    </div>
-                </div>
-
-                <button id="submitBtn" class="btn-submit" type="button" onclick="enviarAvaliacao()">
-                    Finalizar e Ver Resultado
-                </button>
-                <div id="statusMsg"></div>
             </form>
-        </section>
+        </div>
+    </div>
 
-        <!-- TELA DE SUCESSO -->
-        <section id="successPage" class="card hidden">
-            <div style="text-align: center;">
-                <i class="fa-solid fa-circle-check" style="font-size: 48px; color: var(--success); margin-bottom: 15px;"></i>
-                <h2>Análise Pronta, <span id="userNameDisplay"></span>!</h2>
-                <p>Recebemos seus dados. Veja seu perfil abaixo:</p>
+    <!-- Tela Final de Diagnóstico -->
+    <div id="diagFlow" class="hidden">
+        <div class="card result-box">
+            <span class="imc-tag">DIAGNÓSTICO CHEIOS DE VIDA</span>
+            <p style="margin-top: 20px; font-size: 15px;">Olá, <strong id="res_nome"></strong>!</p>
+            
+            <div class="imc-value" id="res_imc">0.0</div>
+            <div id="res_cat" style="font-weight: 700; color: var(--primary-light); text-transform: uppercase; letter-spacing: 1px;">-</div>
+
+            <div class="insight-card">
+                <h4 style="margin: 0 0 10px 0; font-size: 14px; color: var(--primary);"><i class="fa-solid fa-lightbulb"></i> Nossa Observação:</h4>
+                <p id="res_txt" style="font-size: 13px; color: #555; line-height: 1.6; margin: 0;"></p>
             </div>
 
-            <div class="results-grid">
-                <div class="result-card">
-                    <div style="font-size: 11px; font-weight: 700; color: var(--text-muted);">SEU IMC</div>
-                    <div class="result-value" id="imcValor">0.0</div>
-                    <div id="imcCategoria" style="font-size: 12px; font-weight: 600;">-</div>
-                </div>
-                <div class="result-card">
-                    <div style="font-size: 11px; font-weight: 700; color: var(--text-muted);">PERFIL</div>
-                    <div class="result-value" id="perfilTipo" style="font-size: 16px;">-</div>
-                    <div style="font-size: 11px;">Identificado</div>
-                </div>
-            </div>
-
-            <div class="insights-box">
-                <h4 style="margin-top: 0;"><i class="fa-solid fa-bolt"></i> Dica do Nutri:</h4>
-                <p id="insightTexto" style="font-size: 14px; margin-bottom: 0;"></p>
-            </div>
-
-            <button class="btn-submit" style="margin-top: 25px; background: var(--secondary);" onclick="window.location.reload()">Novo Teste</button>
-        </section>
-    </main>
+            <button class="btn btn-next" style="margin-top: 30px; width: 100%;" onclick="window.location.reload()">
+                Falar com Especialista
+            </button>
+        </div>
+    </div>
 </div>
 
 <script>
-// CONFIGURAÇÃO WEB3FORMS
-const WEB3_KEY = "d18eecd4-ae6a-46b6-a4ff-7a71ad137962";
+    let step = 1;
+    const total = 5;
+    const KEY = "d18eecd4-ae6a-46b6-a4ff-7a71ad137962";
 
-function parseNum(val) { return parseFloat(String(val).replace(',', '.')); }
-
-async function enviarAvaliacao() {
-    const btn = document.getElementById('submitBtn');
-    const status = document.getElementById('statusMsg');
-    
-    // Coletar dados
-    const nome = document.getElementById('nome').value;
-    const peso = parseNum(document.getElementById('peso').value);
-    const altura = parseNum(document.getElementById('altura').value);
-    const objetivo = document.querySelector('input[name="objetivo"]:checked')?.value || "Não informado";
-    const atividade = document.querySelector('input[name="atividade"]:checked')?.value || "Não informado";
-
-    if (!nome || isNaN(peso) || isNaN(altura)) {
-        status.innerHTML = '<span style="color: var(--danger);">Preencha Nome, Peso e Altura corretamente.</span>';
-        return;
+    function move(n) {
+        if (n === 1 && !validar()) return;
+        
+        document.getElementById(`s${step}`).classList.remove('active');
+        step += n;
+        
+        if (step > total) { finaliza(); return; }
+        
+        document.getElementById(`s${step}`).classList.add('active');
+        updateUI();
     }
 
-    // IMC para o e-mail
-    const imcNum = (peso / (altura * altura)).toFixed(1);
+    function validar() {
+        if(step === 1 && !document.getElementById('f_nome').value) return false;
+        if(step === 2 && (!document.getElementById('f_peso').value || !document.getElementById('f_altura').value)) return false;
+        return true;
+    }
 
-    // Preparar objeto para o Web3Forms
-    const payload = {
-        access_key: WEB3_KEY,
-        subject: "Nova Avaliação Nutricional: " + nome,
-        from_name: "Seu Site Nutri",
-        Nome: nome,
-        Peso: peso + " kg",
-        Altura: altura + " m",
-        IMC: imcNum,
-        Objetivo: objetivo,
-        Atividade: atividade
-    };
+    function updateUI() {
+        document.getElementById('bBtn').classList.toggle('hidden', step === 1);
+        document.getElementById('nBtn').innerText = step === total ? 'Ver Diagnóstico' : 'Continuar';
+        document.getElementById('pBar').style.width = `${(step/total)*100}%`;
+    }
 
-    btn.disabled = true;
-    status.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando análise...';
+    function markRadio(el) {
+        const parent = el.closest('.step');
+        parent.querySelectorAll('.opt-card').forEach(c => c.classList.remove('radio-checked'));
+        el.classList.add('radio-checked');
+        el.querySelector('input').checked = true;
+    }
 
-    try {
-        const response = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            body: JSON.stringify(payload)
-        });
+    async function finaliza() {
+        const nBtn = document.getElementById('nBtn');
+        nBtn.disabled = true;
+        nBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
 
-        if (response.ok) {
-            mostrarSucesso(nome, imcNum, atividade, objetivo);
-        } else {
-            throw new Error();
+        const dados = {
+            access_key: KEY,
+            nome: document.getElementById('f_nome').value,
+            peso: document.getElementById('f_peso').value,
+            altura: document.getElementById('f_altura').value.replace(',', '.'),
+            objetivo: document.querySelector('input[name="obj"]:checked')?.value,
+            atividade: document.querySelector('input[name="ativ"]:checked')?.value,
+            subject: "Nova Avaliação Cheios de Vida - " + document.getElementById('f_nome').value
+        };
+
+        const imc = (dados.peso / (dados.altura * dados.altura)).toFixed(1);
+
+        try {
+            await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({...dados, IMC_Final: imc})
+            });
+            renderDiag(dados.nome, imc, dados.objetivo);
+        } catch (e) {
+            alert("Erro na conexão. Tente novamente.");
+            nBtn.disabled = false;
         }
-    } catch (e) {
-        status.innerHTML = '<span style="color: var(--danger);">Erro ao enviar. Tente novamente.</span>';
-        btn.disabled = false;
     }
-}
 
-function mostrarSucesso(nome, imc, atividade, objetivo) {
-    let cat = "";
-    let tip = "";
-    
-    if (imc < 18.5) cat = "Abaixo do peso";
-    else if (imc < 25) cat = "Peso Normal";
-    else if (imc < 30) cat = "Sobrepeso";
-    else cat = "Obesidade";
+    function renderDiag(nome, imc, obj) {
+        document.getElementById('formFlow').classList.add('hidden');
+        document.getElementById('diagFlow').classList.remove('hidden');
+        document.getElementById('res_nome').innerText = nome;
+        document.getElementById('res_imc').innerText = imc;
+        
+        let cat = imc < 18.5 ? "Abaixo do peso" : imc < 25 ? "Peso Saudável" : imc < 30 ? "Sobrepeso" : "Obesidade";
+        document.getElementById('res_cat').innerText = cat;
 
-    if (atividade === 'Sedentario') tip = "Conservador";
-    else tip = "Ativo";
-
-    document.getElementById('userNameDisplay').textContent = nome.split(' ')[0];
-    document.getElementById('imcValor').textContent = imc;
-    document.getElementById('imcCategoria').textContent = cat;
-    document.getElementById('perfilTipo').textContent = tip;
-    
-    const insight = objetivo === 'Emagrecimento' 
-        ? "Baseado no seu IMC de " + imc + ", focaremos em um déficit calórico estratégico preservando sua massa magra."
-        : "Para seu objetivo de " + objetivo + ", vamos priorizar a densidade nutricional e o aporte proteico.";
-    
-    document.getElementById('insightTexto').textContent = insight;
-
-    document.getElementById('formPage').classList.add('hidden');
-    document.getElementById('successPage').classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+        let txt = obj === "Emagrecimento" 
+            ? "Para o projeto de emagrecimento 'Cheios de Vida', focaremos em densidade nutricional. Seu IMC de " + imc + " indica que podemos otimizar seu metabolismo com ajustes simples."
+            : "Focaremos em vitalidade e aporte proteico. Seu perfil sugere que você responderá muito bem a um plano de nutrição funcional.";
+        
+        document.getElementById('res_txt').innerText = txt;
+    }
 </script>
+
 </body>
 </html>
