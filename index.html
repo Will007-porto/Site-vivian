@@ -27,12 +27,9 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 20px 15px;
+            margin: 0; font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body); color: var(--text-main);
+            line-height: 1.6; padding: 20px 15px;
             background-image: radial-gradient(circle at 0% 0%, rgba(200, 169, 106, 0.05) 0%, transparent 25%);
         }
 
@@ -44,12 +41,12 @@
             box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
         }
 
-        .header h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 6vw, 42px); color: var(--primary); margin: 0 0 15px; }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 6vw, 42px); color: var(--primary); margin: 0; }
 
         .badge {
             display: inline-block; background: rgba(200, 169, 106, 0.15);
             color: var(--secondary-dark); padding: 6px 16px; border-radius: 50px;
-            font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px;
+            font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;
         }
 
         .card {
@@ -58,205 +55,178 @@
             margin-bottom: 30px;
         }
 
-        .question-group { margin-bottom: 35px; }
-        .question-group h3 {
-            font-size: 19px; color: var(--primary); margin-bottom: 18px;
-            display: flex; align-items: center; gap: 12px;
-        }
+        .question-group { margin-bottom: 30px; }
+        .question-group h3 { font-size: 18px; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
         .question-group h3 span {
-            display: flex; align-items: center; justify-content: center;
-            width: 28px; height: 28px; background: var(--primary); color: white;
-            border-radius: 50%; font-size: 14px;
+            background: var(--primary); color: white; width: 26px; height: 26px;
+            display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 12px;
         }
 
         .input-text {
-            width: 100%; padding: 16px 20px; border: 2px solid var(--border-color);
-            border-radius: var(--radius-md); font-size: 16px; transition: all 0.3s ease;
+            width: 100%; padding: 14px; border: 2px solid var(--border-color);
+            border-radius: var(--radius-md); font-size: 16px; transition: 0.3s;
         }
+        .input-text:focus { outline: none; border-color: var(--secondary); }
 
-        .input-text:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 4px rgba(200, 169, 106, 0.1); }
-
-        .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        .option-item { position: relative; }
-        .option-item input { position: absolute; opacity: 0; }
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
         .option-label {
-            display: flex; align-items: center; padding: 16px 20px;
+            display: flex; align-items: center; padding: 14px;
             background: #fcfdfa; border: 2px solid var(--border-color);
             border-radius: var(--radius-md); cursor: pointer; transition: 0.2s;
         }
-        .option-item input:checked + .option-label { border-color: var(--primary); background: rgba(74, 103, 65, 0.04); color: var(--primary); }
-        
-        .other-input-container { margin-top: 10px; display: none; }
+        input[type="radio"], input[type="checkbox"] { margin-right: 12px; accent-color: var(--primary); }
 
         .btn-submit {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white; border: none; padding: 18px 45px; font-size: 18px;
+            color: white; border: none; padding: 18px; font-size: 18px;
             font-weight: 700; border-radius: 50px; cursor: pointer; width: 100%; transition: 0.3s;
         }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(74, 103, 65, 0.2); }
         .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
 
-        .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .result-card { background: #fcfdfa; border: 1px solid var(--border-color); padding: 20px; border-radius: var(--radius-md); text-align: center; }
-        .result-value { font-size: 24px; font-weight: 700; color: var(--primary); }
-        
-        .insights-box { background: #f4f7f0; border-left: 5px solid var(--secondary); padding: 25px; border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+        /* Resultado */
+        .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .result-card { background: #fcfdfa; border: 1px solid var(--border-color); padding: 15px; border-radius: var(--radius-md); text-align: center; }
+        .result-value { font-size: 22px; font-weight: 700; color: var(--primary); }
+        .insights-box { background: #f4f7f0; border-left: 5px solid var(--secondary); padding: 20px; border-radius: 8px; margin-top: 20px; }
         
         .hidden { display: none !important; }
-        .status-msg { text-align: center; margin-top: 15px; font-weight: 600; }
+        #statusMsg { text-align: center; margin-top: 10px; font-weight: 600; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header class="header">
-        <span class="badge">Planejamento Nutricional</span>
-        <h1>Avaliação de Perfil</h1>
-        <p>Responda para receber uma análise preliminar e iniciarmos seu plano.</p>
+        <span class="badge">Avaliação Profissional</span>
+        <h1>Seu Perfil Nutricional</h1>
     </header>
 
     <main>
         <section id="formPage" class="card">
             <form id="nutriForm">
                 <div class="question-group">
-                    <h3><span><i class="fa-solid fa-user"></i></span> Qual o seu nome?</h3>
-                    <input class="input-text" id="nome" name="nome" type="text" placeholder="Nome completo" required>
+                    <h3><span><i class="fa-solid fa-user"></i></span> Nome Completo</h3>
+                    <input class="input-text" id="nome" type="text" placeholder="Como podemos te chamar?" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="question-group">
+                        <h3><span>1</span> Peso (kg)</h3>
+                        <input class="input-text" id="peso" type="text" placeholder="Ex: 75.5">
+                    </div>
+                    <div class="question-group">
+                        <h3><span>2</span> Altura (m)</h3>
+                        <input class="input-text" id="altura" type="text" placeholder="Ex: 1.75">
+                    </div>
                 </div>
 
                 <div class="question-group">
-                    <h3><span>1</span> Objetivo principal</h3>
+                    <h3><span>3</span> Objetivo Principal</h3>
                     <div class="options-grid">
                         <label class="option-label"><input type="radio" name="objetivo" value="Emagrecimento"> Emagrecimento</label>
-                        <label class="option-label"><input type="radio" name="objetivo" value="Hipertrofia"> Ganho de Massa</label>
-                        <label class="option-label"><input type="radio" name="objetivo" value="Saude"> Saúde e Disposição</label>
-                        <label class="option-label"><input type="radio" name="objetivo" value="Outro" onchange="toggleOther('objOutroCont', this.checked)"> Outro</label>
-                    </div>
-                    <div id="objOutroCont" class="other-input-container">
-                        <input class="input-text" id="objetivoOutro" type="text" placeholder="Especifique">
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="question-group">
-                        <h3><span>2</span> Idade</h3>
-                        <input class="input-text" id="idade" type="number" placeholder="Anos">
-                    </div>
-                    <div class="question-group">
-                        <h3><span>3</span> Peso</h3>
-                        <input class="input-text" id="peso" type="text" placeholder="kg">
-                    </div>
-                    <div class="question-group">
-                        <h3><span>4</span> Altura</h3>
-                        <input class="input-text" id="altura" type="text" placeholder="Ex: 1.70">
+                        <label class="option-label"><input type="radio" name="objetivo" value="Hipertrofia"> Ganho de Massa Muscular</label>
+                        <label class="option-label"><input type="radio" name="objetivo" value="Saude"> Saúde e Longevidade</label>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <h3><span>5</span> Nível de atividade física</h3>
+                    <h3><span>4</span> Nível de Atividade Física</h3>
                     <div class="options-grid">
-                        <label class="option-label"><input type="radio" name="atividade" value="Sedentario"> Sedentário</label>
-                        <label class="option-label"><input type="radio" name="atividade" value="Moderado"> Ativo (3-4x na semana)</label>
-                        <label class="option-label"><input type="radio" name="atividade" value="Intenso"> Atleta / Intenso</label>
+                        <label class="option-label"><input type="radio" name="atividade" value="Sedentario"> Sedentário (Pouco movimento)</label>
+                        <label class="option-label"><input type="radio" name="atividade" value="Moderado"> Moderado (3x na semana)</label>
+                        <label class="option-label"><input type="radio" name="atividade" value="Intenso"> Intenso (Atleta / Diário)</label>
                     </div>
                 </div>
 
-                <div class="question-group">
-                    <h3><span>6</span> Comportamento Alimentar</h3>
-                    <div class="options-grid">
-                        <label class="option-label"><input type="radio" name="comportamento" value="Equilibrado"> Equilibrado</label>
-                        <label class="option-label"><input type="radio" name="comportamento" value="Ansiedade"> Muita ansiedade / beliscos</label>
-                        <label class="option-label"><input type="radio" name="comportamento" value="Sem Rotina"> Sem rotina definida</label>
-                    </div>
-                </div>
-
-                <div class="btn-container">
-                    <button id="submitBtn" class="btn-submit" type="button" onclick="enviarFormulario()">
-                        Enviar e Ver Resultado
-                    </button>
-                    <div id="statusMsg" class="status-msg"></div>
-                </div>
+                <button id="submitBtn" class="btn-submit" type="button" onclick="enviarAvaliacao()">
+                    Finalizar e Ver Resultado
+                </button>
+                <div id="statusMsg"></div>
             </form>
         </section>
 
-        <!-- Resultado Final -->
+        <!-- TELA DE SUCESSO -->
         <section id="successPage" class="card hidden">
-            <div style="text-align: center; margin-bottom: 30px;">
-                <i class="fa-solid fa-circle-check" style="font-size: 50px; color: var(--success);"></i>
-                <h2>Análise Concluída, <span id="userNameDisplay"></span>!</h2>
-                <p>Enviamos seu perfil para o nutricionista. Confira abaixo seu resumo:</p>
+            <div style="text-align: center;">
+                <i class="fa-solid fa-circle-check" style="font-size: 48px; color: var(--success); margin-bottom: 15px;"></i>
+                <h2>Análise Pronta, <span id="userNameDisplay"></span>!</h2>
+                <p>Recebemos seus dados. Veja seu perfil abaixo:</p>
             </div>
 
             <div class="results-grid">
                 <div class="result-card">
-                    <div style="font-size: 12px; font-weight: 700; color: var(--text-muted);">SEU IMC</div>
-                    <div class="result-value" id="imcValor">—</div>
-                    <div id="imcCategoria" style="font-size: 13px;">—</div>
+                    <div style="font-size: 11px; font-weight: 700; color: var(--text-muted);">SEU IMC</div>
+                    <div class="result-value" id="imcValor">0.0</div>
+                    <div id="imcCategoria" style="font-size: 12px; font-weight: 600;">-</div>
                 </div>
                 <div class="result-card">
-                    <div style="font-size: 12px; font-weight: 700; color: var(--text-muted);">METABOLISMO</div>
-                    <div class="result-value" id="perfilMeta" style="font-size: 18px;">—</div>
+                    <div style="font-size: 11px; font-weight: 700; color: var(--text-muted);">PERFIL</div>
+                    <div class="result-value" id="perfilTipo" style="font-size: 16px;">-</div>
+                    <div style="font-size: 11px;">Identificado</div>
                 </div>
             </div>
 
             <div class="insights-box">
-                <h4><i class="fa-solid fa-lightbulb" style="color: var(--secondary);"></i> Próximos Passos:</h4>
-                <ul id="insightsLista" style="padding-left: 20px;"></ul>
+                <h4 style="margin-top: 0;"><i class="fa-solid fa-bolt"></i> Dica do Nutri:</h4>
+                <p id="insightTexto" style="font-size: 14px; margin-bottom: 0;"></p>
             </div>
 
-            <button class="btn-submit" style="margin-top: 30px; background: var(--secondary);" onclick="window.location.reload()">Refazer Teste</button>
+            <button class="btn-submit" style="margin-top: 25px; background: var(--secondary);" onclick="window.location.reload()">Novo Teste</button>
         </section>
     </main>
 </div>
 
 <script>
-const FORM_ENDPOINT = 'https://formspree.io/f/xykoygae';
+// CONFIGURAÇÃO WEB3FORMS
+const WEB3_KEY = "d18eecd4-ae6a-46b6-a4ff-7a71ad137962";
 
-function toggleOther(id, show) {
-    document.getElementById(id).style.display = show ? 'block' : 'none';
-}
+function parseNum(val) { return parseFloat(String(val).replace(',', '.')); }
 
-function parseNr(val) { return parseFloat(String(val).replace(',', '.')); }
-
-async function enviarFormulario() {
+async function enviarAvaliacao() {
     const btn = document.getElementById('submitBtn');
     const status = document.getElementById('statusMsg');
     
-    // Coleta de dados simples
+    // Coletar dados
     const nome = document.getElementById('nome').value;
-    const peso = parseNr(document.getElementById('peso').value);
-    const altura = parseNr(document.getElementById('altura').value);
-    const objetivoBase = document.querySelector('input[name="objetivo"]:checked')?.value;
-    const objetivoOutro = document.getElementById('objetivoOutro').value;
-    const atividade = document.querySelector('input[name="atividade"]:checked')?.value;
-    const comportamento = document.querySelector('input[name="comportamento"]:checked')?.value;
+    const peso = parseNum(document.getElementById('peso').value);
+    const altura = parseNum(document.getElementById('altura').value);
+    const objetivo = document.querySelector('input[name="objetivo"]:checked')?.value || "Não informado";
+    const atividade = document.querySelector('input[name="atividade"]:checked')?.value || "Não informado";
 
-    if (!nome || !peso || !altura) {
-        status.innerHTML = '<span style="color: var(--danger);">Preencha Nome, Peso e Altura.</span>';
+    if (!nome || isNaN(peso) || isNaN(altura)) {
+        status.innerHTML = '<span style="color: var(--danger);">Preencha Nome, Peso e Altura corretamente.</span>';
         return;
     }
 
-    const dados = {
-        nome,
-        idade: document.getElementById('idade').value,
-        peso,
-        altura,
-        objetivo: objetivoBase === 'Outro' ? 'Outro: ' + objetivoOutro : objetivoBase,
-        atividade,
-        comportamento
+    // IMC para o e-mail
+    const imcNum = (peso / (altura * altura)).toFixed(1);
+
+    // Preparar objeto para o Web3Forms
+    const payload = {
+        access_key: WEB3_KEY,
+        subject: "Nova Avaliação Nutricional: " + nome,
+        from_name: "Seu Site Nutri",
+        Nome: nome,
+        Peso: peso + " kg",
+        Altura: altura + " m",
+        IMC: imcNum,
+        Objetivo: objetivo,
+        Atividade: atividade
     };
 
-    // UI Loading
     btn.disabled = true;
-    status.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando para o nutricionista...';
+    status.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando análise...';
 
     try {
-        const response = await fetch(FORM_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            body: JSON.stringify(dados)
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify(payload)
         });
 
         if (response.ok) {
-            exibirResultado(dados);
+            mostrarSucesso(nome, imcNum, atividade, objetivo);
         } else {
             throw new Error();
         }
@@ -266,29 +236,32 @@ async function enviarFormulario() {
     }
 }
 
-function exibirResultado(d) {
-    const imc = (d.peso / (d.altura * d.altura)).toFixed(1);
+function mostrarSucesso(nome, imc, atividade, objetivo) {
     let cat = "";
-    let ins = [];
-
+    let tip = "";
+    
     if (imc < 18.5) cat = "Abaixo do peso";
-    else if (imc < 25) cat = "Peso ideal";
+    else if (imc < 25) cat = "Peso Normal";
     else if (imc < 30) cat = "Sobrepeso";
     else cat = "Obesidade";
 
-    if (d.comportamento === 'Ansiedade') ins.push("Focaremos em alimentos que aumentam a saciedade.");
-    if (d.atividade === 'Sedentario') ins.push("Sua dieta terá um ajuste calórico para metabolismo lento.");
-    ins.push("Aguarde o contato para sua dieta personalizada.");
+    if (atividade === 'Sedentario') tip = "Conservador";
+    else tip = "Ativo";
 
-    document.getElementById('userNameDisplay').textContent = d.nome.split(' ')[0];
+    document.getElementById('userNameDisplay').textContent = nome.split(' ')[0];
     document.getElementById('imcValor').textContent = imc;
     document.getElementById('imcCategoria').textContent = cat;
-    document.getElementById('perfilMeta').textContent = d.atividade === 'Intenso' ? "Acelerado" : "Regular";
-    document.getElementById('insightsLista').innerHTML = ins.map(i => `<li>${i}</li>`).join('');
+    document.getElementById('perfilTipo').textContent = tip;
+    
+    const insight = objetivo === 'Emagrecimento' 
+        ? "Baseado no seu IMC de " + imc + ", focaremos em um déficit calórico estratégico preservando sua massa magra."
+        : "Para seu objetivo de " + objetivo + ", vamos priorizar a densidade nutricional e o aporte proteico.";
+    
+    document.getElementById('insightTexto').textContent = insight;
 
     document.getElementById('formPage').classList.add('hidden');
     document.getElementById('successPage').classList.remove('hidden');
-    window.scrollTo(0,0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 </body>
