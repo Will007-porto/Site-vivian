@@ -8,275 +8,253 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #3a5a40; /* Verde Natureza Profundo */
-            --primary-light: #588157;
-            --accent: #e67e22;  /* Laranja Vitalidade */
-            --bg: #f8f9fa;
-            --card-bg: #ffffff;
-            --text: #2c3e50;
-            --text-muted: #7f8c8d;
-            --radius: 16px;
-            --shadow: 0 15px 35px rgba(58, 90, 64, 0.1);
+            /* Cores extraídas do seu logo */
+            --primary: #3a5a40;      /* Verde Musgo do Logo */
+            --accent: #c5a059;       /* Dourado/Bronze do Logo */
+            --bg-glow: #a8bc94;      /* Verde claro do fundo do logo */
+            --text-dark: #1e2d1f;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --radius: 20px;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             margin: 0; font-family: 'Inter', sans-serif;
-            background-color: var(--bg); color: var(--text);
+            /* Fundo inspirado no fundo do seu logo */
+            background: radial-gradient(circle at center, #cbd9bc 0%, #a8bc94 100%);
+            color: var(--text-dark);
             display: flex; align-items: center; justify-content: center;
-            min-height: 100vh;
+            min-height: 100vh; padding: 20px;
         }
 
-        .app-wrapper {
-            width: 100%; max-width: 480px; padding: 20px;
+        .app-container { width: 100%; max-width: 450px; }
+
+        /* Estilização do Logo */
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo-container img { 
+            max-width: 180px; 
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            border-radius: 50%;
         }
 
-        /* Branding Superior */
-        .brand-header {
-            text-align: center; margin-bottom: 25px;
-        }
-        .brand-header span {
-            font-family: 'Playfair Display', serif; font-size: 22px;
-            color: var(--primary); letter-spacing: -0.5px;
-        }
-        .brand-header .dot { color: var(--accent); }
-
-        /* Barra de Progresso Estilizada */
-        .prog-container { margin-bottom: 25px; }
-        .prog-track { height: 6px; background: #e0e0e0; border-radius: 10px; overflow: hidden; }
-        .prog-bar { 
-            height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-light)); 
-            width: 20%; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+        /* Barra de Progresso Dourada */
+        .progress-wrapper { margin-bottom: 25px; padding: 0 10px; }
+        .progress-track { height: 4px; background: rgba(0,0,0,0.05); border-radius: 10px; }
+        .progress-bar { 
+            height: 100%; background: var(--accent); width: 20%; 
+            transition: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
         }
 
-        /* Card de Conteúdo */
+        /* Card Principal */
         .card {
             background: var(--card-bg); padding: 40px 30px;
-            border-radius: var(--radius); box-shadow: var(--shadow);
-            position: relative;
+            border-radius: var(--radius);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        .step { display: none; animation: slideUp 0.5s ease forwards; }
+        .step { display: none; animation: fadeIn 0.5s ease forwards; }
         .step.active { display: block; }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h1 { font-family: 'Playfair Display', serif; font-size: 26px; margin: 0 0 12px; color: var(--primary); }
-        .subtitle { font-size: 15px; color: var(--text-muted); margin-bottom: 30px; line-height: 1.5; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); margin: 0 0 10px; text-align: center; }
+        .subtitle { font-size: 14px; color: #555; text-align: center; margin-bottom: 30px; }
 
-        /* Estilização de Inputs */
-        .label-style { display: block; font-size: 12px; font-weight: 700; color: var(--primary-light); text-transform: uppercase; margin-bottom: 10px; }
-        
+        /* Inputs Premium */
+        .label-text { display: block; font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
         .input-premium {
-            width: 100%; border: 2px solid #f0f0f0; border-radius: 10px;
+            width: 100%; border: 1px solid #ddd; border-radius: 12px;
             padding: 15px; font-size: 16px; outline: none; transition: 0.3s;
-            background: #fafafa; margin-bottom: 20px;
+            background: #fdfdfd; margin-bottom: 20px;
         }
-        .input-premium:focus { border-color: var(--primary-light); background: #fff; box-shadow: 0 0 0 4px rgba(58, 90, 64, 0.05); }
+        .input-premium:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1); }
 
         /* Opções Clicáveis */
-        .opt-card {
-            display: flex; align-items: center; padding: 16px; border: 2px solid #f0f0f0;
-            border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: 0.2s;
+        .option-card {
+            display: flex; align-items: center; padding: 16px; 
+            border: 1px solid #eee; border-radius: 15px; margin-bottom: 12px;
+            cursor: pointer; transition: 0.2s; background: white;
         }
-        .opt-card:hover { border-color: var(--primary-light); background: #fdfdfd; }
-        input[type="radio"] { width: 20px; height: 20px; margin-right: 15px; accent-color: var(--primary); }
-        .radio-checked { border-color: var(--primary) !important; background: #f4f7f0 !important; font-weight: 600; }
+        .option-card:hover { border-color: var(--primary); }
+        .option-card.selected { border-color: var(--primary); background: #f4f7f0; border-width: 2px; }
+        input[type="radio"] { accent-color: var(--primary); margin-right: 15px; width: 18px; height: 18px; }
 
         /* Botões */
-        .actions { display: flex; gap: 12px; margin-top: 20px; }
+        .nav-buttons { display: flex; gap: 12px; margin-top: 20px; }
         .btn {
-            padding: 18px 25px; border-radius: 50px; border: none;
+            padding: 18px; border-radius: 50px; border: none;
             font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 15px;
         }
-        .btn-next { background: var(--primary); color: white; flex-grow: 2; box-shadow: 0 10px 20px rgba(58, 90, 64, 0.2); }
-        .btn-next:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        .btn-back { background: #eee; color: #777; flex-grow: 1; }
+        .btn-next { 
+            background: linear-gradient(135deg, var(--primary), var(--primary-light)); 
+            color: white; flex-grow: 2;
+            box-shadow: 0 10px 20px rgba(58, 90, 64, 0.2);
+        }
+        .btn-back { background: #eee; color: #777; width: 100px; }
 
-        /* Resultado */
-        .result-box { text-align: center; }
-        .imc-tag { background: var(--accent); color: white; padding: 5px 15px; border-radius: 50px; font-size: 12px; font-weight: 800; }
-        .imc-value { font-size: 48px; font-weight: 700; color: var(--primary); margin: 15px 0; }
-        .insight-card { background: #f8fcf8; border: 1px solid #e0eee0; padding: 20px; border-radius: 12px; text-align: left; margin-top: 20px; }
+        /* Resultado Final */
+        .res-imc { font-size: 54px; font-weight: 700; color: var(--primary); margin: 10px 0; }
+        .res-badge { background: var(--accent); color: white; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 800; }
 
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-<div class="app-wrapper">
-    <div class="brand-header">
-        <span>Cheios de Vida<span class="dot">.</span></span>
+<div class="app-container">
+    <div class="logo-container">
+        <!-- Coloque o arquivo logo.png na mesma pasta do seu site -->
+        <img src="logo.png" alt="Cheios de Vida Logo" onerror="this.src='https://via.placeholder.com/150?text=CHEIOS+DE+VIDA'">
     </div>
 
-    <div id="formFlow">
-        <div class="prog-container">
-            <div class="prog-track"><div class="prog-bar" id="pBar"></div></div>
+    <div id="quiz-ui">
+        <div class="progress-wrapper">
+            <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
         </div>
 
         <div class="card">
-            <form id="mainForm">
-                <!-- Passo 1: Nome -->
-                <div class="step active" id="s1">
-                    <h1>Sua jornada começa aqui.</h1>
-                    <p class="subtitle">Primeiro, como podemos te chamar?</p>
-                    <span class="label-style">Nome Completo</span>
-                    <input type="text" class="input-premium" id="f_nome" placeholder="Seu nome aqui..." required>
+            <form id="healthForm">
+                <!-- Passo 1 -->
+                <div class="step active" id="st1">
+                    <h1>Bem-vindo à sua transformação.</h1>
+                    <p class="subtitle">Vamos iniciar seu diagnóstico de saúde.</p>
+                    <span class="label-text">Nome Completo</span>
+                    <input type="text" class="input-premium" id="inp_nome" placeholder="Seu nome aqui">
                 </div>
 
-                <!-- Passo 2: Medidas -->
-                <div class="step" id="s2">
+                <!-- Passo 2 -->
+                <div class="step" id="st2">
                     <h1>Suas Medidas.</h1>
-                    <p class="subtitle">Esses dados são essenciais para o diagnóstico inicial.</p>
-                    <span class="label-style">Peso Atual (kg)</span>
-                    <input type="number" class="input-premium" id="f_peso" placeholder="Ex: 75">
-                    <span class="label-style">Altura (m)</span>
-                    <input type="text" class="input-premium" id="f_altura" placeholder="Ex: 1.75">
+                    <p class="subtitle">Dados essenciais para análise metabólica.</p>
+                    <span class="label-text">Peso (kg)</span>
+                    <input type="number" class="input-premium" id="inp_peso" placeholder="Ex: 75">
+                    <span class="label-text">Altura (m)</span>
+                    <input type="text" class="input-premium" id="inp_altura" placeholder="Ex: 1.72">
                 </div>
 
-                <!-- Passo 3: Objetivo -->
-                <div class="step" id="s3">
-                    <h1>O seu foco.</h1>
-                    <p class="subtitle">Qual o seu maior desejo hoje?</p>
-                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="obj" value="Emagrecimento"> Emagrecimento Consciente</label>
-                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="obj" value="Massa"> Ganho de Massa Magra</label>
-                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="obj" value="Vitalidade"> Mais Energia e Saúde</label>
+                <!-- Passo 3 -->
+                <div class="step" id="st3">
+                    <h1>Seu Objetivo.</h1>
+                    <p class="subtitle">O que é prioridade para você agora?</p>
+                    <label class="option-card"><input type="radio" name="goal" value="Emagrecimento"> Emagrecimento Saudável</label>
+                    <label class="option-card"><input type="radio" name="goal" value="Massa"> Ganho de Massa Magra</label>
+                    <label class="option-card"><input type="radio" name="goal" value="Saude"> Vitalidade e Disposição</label>
                 </div>
 
-                <!-- Passo 4: Atividade -->
-                <div class="step" id="s4">
-                    <h1>Seu Movimento.</h1>
-                    <p class="subtitle">Como você descreveria sua rotina?</p>
-                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="ativ" value="Sedentario"> Pouco Ativo</label>
-                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="ativ" value="Moderado"> Ativo (3-5x por semana)</label>
-                    <label class="opt-card" onclick="markRadio(this)"><input type="radio" name="ativ" value="Intenso"> Alta Performance / Atleta</label>
+                <!-- Passo 4 -->
+                <div class="step" id="st4">
+                    <h1>Nível de Atividade.</h1>
+                    <p class="subtitle">Como está sua rotina de movimentos?</p>
+                    <label class="option-card"><input type="radio" name="fit" value="Sedentario"> Pouco Ativo</label>
+                    <label class="option-card"><input type="radio" name="fit" value="Ativo"> Ativo (3-5x semana)</label>
+                    <label class="option-card"><input type="radio" name="fit" value="Atleta"> Alta Performance</label>
                 </div>
 
-                <!-- Passo 5: Envio -->
-                <div class="step" id="s5">
-                    <h1>Tudo pronto!</h1>
-                    <p class="subtitle">Sua avaliação está pronta para ser processada pela nossa equipe.</p>
-                    <div style="text-align: center; color: var(--primary);">
-                        <i class="fa-solid fa-heart-pulse" style="font-size: 50px; margin-bottom: 20px;"></i>
-                        <p style="font-size: 13px; font-weight: 500;">Clique no botão abaixo para ver seu diagnóstico e enviar os dados.</p>
-                    </div>
-                </div>
-
-                <div class="actions">
-                    <button type="button" class="btn btn-back hidden" id="bBtn" onclick="move(-1)">Voltar</button>
-                    <button type="button" class="btn btn-next" id="nBtn" onclick="move(1)">Continuar</button>
+                <div class="nav-buttons">
+                    <button type="button" class="btn btn-back hidden" id="prevBtn" onclick="next(-1)">Voltar</button>
+                    <button type="button" class="btn btn-next" id="nextBtn" onclick="next(1)">Próximo</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Tela Final de Diagnóstico -->
-    <div id="diagFlow" class="hidden">
-        <div class="card result-box">
-            <span class="imc-tag">DIAGNÓSTICO CHEIOS DE VIDA</span>
-            <p style="margin-top: 20px; font-size: 15px;">Olá, <strong id="res_nome"></strong>!</p>
+    <!-- Resultado -->
+    <div id="result-ui" class="hidden">
+        <div class="card" style="text-align: center;">
+            <span class="res-badge">RELATÓRIO CHEIOS DE VIDA</span>
+            <p style="margin: 20px 0 5px; font-weight: 600;">Olá, <span id="out_nome"></span>!</p>
+            <div class="res-imc" id="out_imc">0.0</div>
+            <p id="out_cat" style="color: var(--primary); font-weight: 700; text-transform: uppercase; margin: 0 0 20px;"></p>
             
-            <div class="imc-value" id="res_imc">0.0</div>
-            <div id="res_cat" style="font-weight: 700; color: var(--primary-light); text-transform: uppercase; letter-spacing: 1px;">-</div>
-
-            <div class="insight-card">
-                <h4 style="margin: 0 0 10px 0; font-size: 14px; color: var(--primary);"><i class="fa-solid fa-lightbulb"></i> Nossa Observação:</h4>
-                <p id="res_txt" style="font-size: 13px; color: #555; line-height: 1.6; margin: 0;"></p>
+            <div style="background: #f4f7f0; padding: 20px; border-radius: 15px; text-align: left; border: 1px solid #e0eee0;">
+                <h4 style="margin: 0 0 10px; color: var(--primary); font-size: 14px;">Observação do Especialista:</h4>
+                <p id="out_txt" style="font-size: 13px; line-height: 1.6; color: #444; margin: 0;"></p>
             </div>
 
-            <button class="btn btn-next" style="margin-top: 30px; width: 100%;" onclick="window.location.reload()">
-                Falar com Especialista
+            <button class="btn btn-next" style="margin-top: 25px; width: 100%;" onclick="window.location.reload()">
+                Falar com Nutricionista
             </button>
         </div>
     </div>
 </div>
 
 <script>
-    let step = 1;
-    const total = 5;
-    const KEY = "d18eecd4-ae6a-46b6-a4ff-7a71ad137962";
+    let currentStep = 1;
+    const totalSteps = 4;
+    const WEB3_KEY = "d18eecd4-ae6a-46b6-a4ff-7a71ad137962";
 
-    function move(n) {
-        if (n === 1 && !validar()) return;
-        
-        document.getElementById(`s${step}`).classList.remove('active');
-        step += n;
-        
-        if (step > total) { finaliza(); return; }
-        
-        document.getElementById(`s${step}`).classList.add('active');
+    function next(n) {
+        if (n === 1 && !validate()) return;
+        document.getElementById(`st${currentStep}`).classList.remove('active');
+        currentStep += n;
+        if (currentStep > totalSteps) { submit(); return; }
+        document.getElementById(`st${currentStep}`).classList.add('active');
         updateUI();
     }
 
-    function validar() {
-        if(step === 1 && !document.getElementById('f_nome').value) return false;
-        if(step === 2 && (!document.getElementById('f_peso').value || !document.getElementById('f_altura').value)) return false;
+    function validate() {
+        if(currentStep === 1 && !document.getElementById('inp_nome').value) return false;
+        if(currentStep === 2 && (!document.getElementById('inp_peso').value || !document.getElementById('inp_altura').value)) return false;
         return true;
     }
 
     function updateUI() {
-        document.getElementById('bBtn').classList.toggle('hidden', step === 1);
-        document.getElementById('nBtn').innerText = step === total ? 'Ver Diagnóstico' : 'Continuar';
-        document.getElementById('pBar').style.width = `${(step/total)*100}%`;
+        document.getElementById('prevBtn').classList.toggle('hidden', currentStep === 1);
+        document.getElementById('nextBtn').innerText = currentStep === totalSteps ? 'Finalizar' : 'Próximo';
+        document.getElementById('progressBar').style.width = `${(currentStep/totalSteps)*100}%`;
     }
 
-    function markRadio(el) {
-        const parent = el.closest('.step');
-        parent.querySelectorAll('.opt-card').forEach(c => c.classList.remove('radio-checked'));
-        el.classList.add('radio-checked');
-        el.querySelector('input').checked = true;
-    }
+    async function submit() {
+        const btn = document.getElementById('nextBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
-    async function finaliza() {
-        const nBtn = document.getElementById('nBtn');
-        nBtn.disabled = true;
-        nBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
-
-        const dados = {
-            access_key: KEY,
-            nome: document.getElementById('f_nome').value,
-            peso: document.getElementById('f_peso').value,
-            altura: document.getElementById('f_altura').value.replace(',', '.'),
-            objetivo: document.querySelector('input[name="obj"]:checked')?.value,
-            atividade: document.querySelector('input[name="ativ"]:checked')?.value,
-            subject: "Nova Avaliação Cheios de Vida - " + document.getElementById('f_nome').value
+        const data = {
+            access_key: WEB3_KEY,
+            Nome: document.getElementById('inp_nome').value,
+            Peso: document.getElementById('inp_peso').value,
+            Altura: document.getElementById('inp_altura').value.replace(',', '.'),
+            Objetivo: document.querySelector('input[name="goal"]:checked')?.value,
+            Rotina: document.querySelector('input[name="fit"]:checked')?.value,
+            subject: "Nova Avaliação: " + document.getElementById('inp_nome').value
         };
 
-        const imc = (dados.peso / (dados.altura * dados.altura)).toFixed(1);
+        const imc = (data.Peso / (data.Altura * data.Altura)).toFixed(1);
 
         try {
             await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({...dados, IMC_Final: imc})
+                body: JSON.stringify({...data, IMC_Calculado: imc})
             });
-            renderDiag(dados.nome, imc, dados.objetivo);
+            showResult(data.Nome, imc, data.Objetivo);
         } catch (e) {
-            alert("Erro na conexão. Tente novamente.");
-            nBtn.disabled = false;
+            alert("Erro ao enviar.");
+            btn.disabled = false;
         }
     }
 
-    function renderDiag(nome, imc, obj) {
-        document.getElementById('formFlow').classList.add('hidden');
-        document.getElementById('diagFlow').classList.remove('hidden');
-        document.getElementById('res_nome').innerText = nome;
-        document.getElementById('res_imc').innerText = imc;
+    function showResult(nome, imc, obj) {
+        document.getElementById('quiz-ui').classList.add('hidden');
+        document.getElementById('result-ui').classList.remove('hidden');
+        document.getElementById('out_nome').innerText = nome;
+        document.getElementById('out_imc').innerText = imc;
         
-        let cat = imc < 18.5 ? "Abaixo do peso" : imc < 25 ? "Peso Saudável" : imc < 30 ? "Sobrepeso" : "Obesidade";
-        document.getElementById('res_cat').innerText = cat;
-
-        let txt = obj === "Emagrecimento" 
-            ? "Para o projeto de emagrecimento 'Cheios de Vida', focaremos em densidade nutricional. Seu IMC de " + imc + " indica que podemos otimizar seu metabolismo com ajustes simples."
-            : "Focaremos em vitalidade e aporte proteico. Seu perfil sugere que você responderá muito bem a um plano de nutrição funcional.";
+        let cat = imc < 18.5 ? "Abaixo do Peso" : imc < 25 ? "Peso Saudável" : imc < 30 ? "Sobrepeso" : "Obesidade";
+        document.getElementById('out_cat').innerText = cat;
         
-        document.getElementById('res_txt').innerText = txt;
+        let msg = obj === "Emagrecimento" 
+            ? "Para o seu objetivo de emagrecimento, focaremos em reequilíbrio metabólico. Seu IMC de " + imc + " nos dá uma excelente base para começar."
+            : "Focaremos em aumentar sua vitalidade e energia diária através da nutrição funcional.";
+        document.getElementById('out_txt').innerText = msg;
     }
 </script>
-
 </body>
 </html>
