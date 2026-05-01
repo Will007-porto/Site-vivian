@@ -178,7 +178,7 @@
                     </div>
                 </div>
 
-                <!-- ETAPA 4: ROTINA E SAÚDE ATUALIZADA -->
+                <!-- ETAPA 4 -->
                 <div class="step" id="step4">
                     <h2>Rotina e Saúde</h2>
                     <span class="label-head">Água por dia</span>
@@ -302,32 +302,68 @@
         return true;
     }
 
+    // CORREÇÃO DEFINITIVA: COLETANDO TODOS OS CAMPOS DO E-MAIL
     async function submit() {
         const btn = document.getElementById('btnNext');
         btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
+        
         const peso = parseFloat(document.getElementById('v_peso').value);
         const altura = parseFloat(document.getElementById('v_altura').value.replace(',', '.'));
         const imc = (peso / (altura * altura)).toFixed(1);
-        const saude = Array.from(document.querySelectorAll('input[name="saude"]:checked')).map(c => c.value);
-        const prefs = Array.from(document.querySelectorAll('input[name="pref"]:checked')).map(c => c.value);
-        const dados = {
+
+        const saudeSelecionada = Array.from(document.querySelectorAll('input[name="saude"]:checked')).map(c => c.value);
+        const prefSelecionada = Array.from(document.querySelectorAll('input[name="pref"]:checked')).map(c => c.value);
+
+        // Objeto completo com os 17 campos + cálculos
+        const dadosCompletos = {
             access_key: WEB3_KEY,
+            subject: "Nova Avaliação Cheios de Vida - " + document.getElementById('v_nome').value,
+            
+            // Etapa 1
             Nome: document.getElementById('v_nome').value,
+            Idade: document.getElementById('v_idade').value,
+            Sexo: document.querySelector('input[name="sexo"]:checked')?.value,
+            
+            // Etapa 2
+            Peso: peso + " kg",
+            Altura: altura + " m",
             IMC: imc,
-            Objetivo: document.querySelector('input[name="obj"]:checked')?.value,
-            Saude: saude.join(', ') + " " + (document.getElementById('v_qualSaude').value),
-            Trava: document.querySelector('input[name="trava"]:checked')?.value
+            Atividade_Dia: document.querySelector('input[name="neat"]:checked')?.value,
+            Treino_Semana: document.querySelector('input[name="treino"]:checked')?.value,
+            
+            // Etapa 3
+            Sensacao_Hoje: document.querySelector('input[name="sente"]:checked')?.value,
+            Comportamento_Alimentar: document.querySelector('input[name="comp"]:checked')?.value,
+            Sono_Medio: document.querySelector('input[name="sono"]:checked')?.value,
+            
+            // Etapa 4
+            Consumo_Agua: document.querySelector('input[name="agua"]:checked')?.value,
+            Refeicoes_Dia: document.querySelector('input[name="refeicoes"]:checked')?.value,
+            Condicoes_Saude: saudeSelecionada.join(', ') + " " + document.getElementById('v_qualSaude').value,
+            Preferencias: prefSelecionada.join(', '),
+            Alimentos_Evita: document.getElementById('v_evita').value,
+            
+            // Etapa 5
+            Objetivo_Principal: (document.querySelector('input[name="obj"]:checked')?.value === 'Outro' ? document.getElementById('v_qualObj').value : document.querySelector('input[name="obj"]:checked')?.value),
+            O_Que_Trava: document.querySelector('input[name="trava"]:checked')?.value
         };
+
         try {
-            await fetch("https://api.web3forms.com/submit", {
+            const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dados)
+                body: JSON.stringify(dadosCompletos)
             });
-            showResult(dados.Nome, imc, dados);
+            
+            if(response.ok) {
+                showResult(dadosCompletos.Nome, imc, dadosCompletos);
+            } else {
+                throw new Error();
+            }
         } catch (e) {
-            alert("Erro ao enviar.");
+            alert("Erro ao enviar. Tente novamente.");
             btn.disabled = false;
+            btn.innerText = "Concluir Avaliação";
         }
     }
 
@@ -338,7 +374,14 @@
         document.getElementById('resIMC').innerText = imc;
         let cat = imc < 18.5 ? "Abaixo do Peso" : imc < 25 ? "Peso Saudável" : imc < 30 ? "Sobrepeso" : "Obesidade";
         document.getElementById('resCat').innerText = cat;
-        document.getElementById('resInsight').innerHTML = `Com base no seu objetivo de ${dados.Objetivo}, identificamos que sua maior trava hoje é "${dados.Trava}". <br><br> Em breve entraremos em contato para os próximos passos da sua jornada Cheios de Vida!`;
+        
+        let insight = `Baseado no seu objetivo de ${dados.Objetivo_Principal}, identificamos que sua maior dificuldade hoje é "${dados.O_Que_Trava}". <br><br>`;
+        
+        if (dados.Sono_Medio.includes('Menos')) insight += "⚠️ <strong>Atenção ao sono:</strong> Dormir pouco afeta diretamente seu metabolismo. <br>";
+        if (dados.Comportamento_Alimentar.includes('Noite')) insight += "⚠️ <strong>Foco na Noite:</strong> Precisamos organizar suas refeições diurnas para evitar o exagero noturno. <br>";
+        
+        insight += "<br>Em breve entraremos em contato para os próximos passos!";
+        document.getElementById('resInsight').innerHTML = insight;
     }
 </script>
 </body>
