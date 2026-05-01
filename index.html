@@ -25,10 +25,9 @@
         .logo-container { text-align: center; margin-bottom: 20px; }
         .logo-container img { max-width: 160px; height: auto; border-radius: 50%; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15)); }
 
-        /* Progress Bar */
         .progress-wrapper { margin-bottom: 20px; padding: 0 10px; }
         .progress-track { height: 6px; background: rgba(0,0,0,0.08); border-radius: 10px; }
-        .progress-bar { height: 100%; background: var(--accent); width: 0%; transition: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 0 10px rgba(197, 160, 89, 0.3); }
+        .progress-bar { height: 100%; background: var(--accent); width: 0%; transition: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
         .card {
             background: var(--card-bg); padding: 35px 25px; border-radius: var(--radius);
@@ -40,16 +39,27 @@
         .step.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Intro Styling */
+        /* AJUSTE TELA INICIAL CENTRALIZADA E JUSTIFICADA */
         .intro-box { text-align: center; }
-        .intro-text { font-size: 14px; line-height: 1.6; color: #444; margin-bottom: 25px; background: #f4f7f0; padding: 20px; border-radius: 15px; border-left: 4px solid var(--primary); text-align: left; }
+        .intro-icon { font-size: 40px; color: var(--accent); margin-bottom: 15px; }
+        .intro-text { 
+            font-size: 14.5px; 
+            line-height: 1.7; 
+            color: #444; 
+            margin: 0 auto 30px; 
+            background: #f4f7f0; 
+            padding: 25px; 
+            border-radius: 20px; 
+            border-top: 3px solid var(--primary);
+            text-align: justify; /* Texto Interno Justificado */
+            max-width: 100%;
+        }
 
-        h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--primary); margin: 0 0 15px; text-align: center; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); margin: 0 0 15px; text-align: center; }
         .label-head { display: block; font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin: 18px 0 8px; letter-spacing: 1px; }
 
-        /* Inputs */
         .input-premium {
-            width: 100%; border: 1px solid #ddd; border-radius: 12px; padding: 14px;
+            width: 100%; border: 1px solid #ddd; border-radius: 14px; padding: 14px;
             font-size: 16px; outline: none; transition: 0.3s; background: #fff;
         }
         .input-premium:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1); }
@@ -67,7 +77,6 @@
         .btn-next { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(58, 90, 64, 0.15); }
         .btn-back { background: #f0f0f0; color: #888; flex: 0.4; }
 
-        /* Results */
         .res-imc { font-size: 54px; font-weight: 700; color: var(--primary); margin: 10px 0; text-align: center; }
         .insight-box { background: #f4f7f0; padding: 20px; border-radius: 18px; border: 1px solid #e0eee0; margin-top: 20px; font-size: 13px; line-height: 1.6; }
 
@@ -78,8 +87,7 @@
 
 <div class="app-container">
     <div class="logo-container">
-        <!-- Seu endereço de imagem atualizado -->
-        <img src="https://i.postimg.cc/dVmtrxHB/image.png" alt="Cheios de Vida" onerror="this.src='https://via.placeholder.com/150?text=CHEIOS+DE+VIDA'">
+        <img src="https://i.postimg.cc/dVmtrxHB/image.png" alt="Cheios de Vida">
     </div>
 
     <div id="form-flow">
@@ -88,15 +96,18 @@
         </div>
 
         <div class="card">
-            <!-- INTRODUÇÃO -->
+            <!-- TELA INICIAL AJUSTADA -->
             <div class="step active" id="step0">
-                <h2>Avaliação Nutricional</h2>
-                <div class="intro-text">
-                    Este formulário faz parte da sua avaliação nutricional personalizada. <br><br>
-                    As informações coletadas serão utilizadas para montar um plano alimentar adaptado à sua rotina, preferências e objetivos, garantindo mais praticidade, equilíbrio e resultados reais. <br><br>
-                    <strong>Responda com atenção! Cada detalhe é importante para a construção do seu plano.</strong>
+                <div class="intro-box">
+                    <div class="intro-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <h2>Avaliação Nutricional</h2>
+                    <div class="intro-text">
+                        Este formulário faz parte da sua avaliação nutricional personalizada. <br><br>
+                        As informações coletadas serão utilizadas para montar um plano alimentar adaptado à sua rotina, preferências e objetivos, garantindo mais praticidade, equilíbrio e resultados reais. <br><br>
+                        <strong>Responda com atenção! Cada detalhe é importante para a construção do seu plano.</strong>
+                    </div>
+                    <button class="btn btn-next" onclick="move(1)">Iniciar Avaliação</button>
                 </div>
-                <button class="btn btn-next" onclick="move(1)">Iniciar Avaliação</button>
             </div>
 
             <form id="healthForm">
@@ -192,7 +203,7 @@
                         <label class="option-card"><input type="radio" name="refeicoes" value="Indefinida"> Sem rotina definida</label>
                     </div>
 
-                    <span class="label-head">Condições de saúde (Marque as que desejar)</span>
+                    <span class="label-head">Condições de saúde</span>
                     <div class="option-grid">
                         <label class="option-card"><input type="checkbox" name="saude" value="Nenhuma"> Nenhuma</label>
                         <label class="option-card"><input type="checkbox" name="saude" value="Diabetes"> Diabetes / Glicemia alta</label>
@@ -264,7 +275,6 @@
     const totalSteps = 5;
     const WEB3_KEY = "d18eecd4-ae6a-46b6-a4ff-7a71ad137962";
 
-    // Limite de 2 seleções para Preferências
     const prefChecks = document.querySelectorAll('input[name="pref"]');
     prefChecks.forEach(cb => {
         cb.addEventListener('change', () => {
@@ -273,7 +283,6 @@
         });
     });
 
-    // Toggle campos "Outro"
     document.getElementById('checkOutroSaude').addEventListener('change', (e) => {
         document.getElementById('v_qualSaude').classList.toggle('hidden', !e.target.checked);
     });
@@ -285,15 +294,9 @@
 
     function move(n) {
         if (n === 1 && !validate()) return;
-        
         document.getElementById(`step${currentStep}`).classList.remove('active');
         currentStep += n;
-        
-        if (currentStep > totalSteps) { 
-            submit(); 
-            return; 
-        }
-
+        if (currentStep > totalSteps) { submit(); return; }
         document.getElementById(`step${currentStep}`).classList.add('active');
         document.getElementById('navGroup').classList.toggle('hidden', currentStep === 0);
         document.getElementById('pBar').style.width = `${(currentStep/totalSteps)*100}%`;
@@ -303,51 +306,30 @@
 
     function validate() {
         if (currentStep === 0) return true;
-        if (currentStep === 1) {
-            return document.getElementById('v_nome').value && document.getElementById('v_idade').value && document.querySelector('input[name="sexo"]:checked');
-        }
-        if (currentStep === 2) {
-            return document.getElementById('v_peso').value && document.getElementById('v_altura').value && document.querySelector('input[name="treino"]:checked');
-        }
-        if (currentStep === 3) {
-            return document.querySelector('input[name="comp"]:checked') && document.querySelector('input[name="sono"]:checked');
-        }
-        if (currentStep === 5) {
-            return document.querySelector('input[name="obj"]:checked') && document.querySelector('input[name="trava"]:checked');
-        }
+        if (currentStep === 1) return document.getElementById('v_nome').value && document.getElementById('v_idade').value && document.querySelector('input[name="sexo"]:checked');
+        if (currentStep === 2) return document.getElementById('v_peso').value && document.getElementById('v_altura').value && document.querySelector('input[name="treino"]:checked');
+        if (currentStep === 3) return document.querySelector('input[name="comp"]:checked') && document.querySelector('input[name="sono"]:checked');
+        if (currentStep === 5) return document.querySelector('input[name="obj"]:checked') && document.querySelector('input[name="trava"]:checked');
         return true;
     }
 
     async function submit() {
         const btn = document.getElementById('btnNext');
         btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
-
         const peso = parseFloat(document.getElementById('v_peso').value);
         const altura = parseFloat(document.getElementById('v_altura').value.replace(',', '.'));
         const imc = (peso / (altura * altura)).toFixed(1);
-
         const saude = Array.from(document.querySelectorAll('input[name="saude"]:checked')).map(c => c.value);
         const prefs = Array.from(document.querySelectorAll('input[name="pref"]:checked')).map(c => c.value);
-
         const dados = {
             access_key: WEB3_KEY,
-            subject: "Nova Avaliação Cheios de Vida - " + document.getElementById('v_nome').value,
             Nome: document.getElementById('v_nome').value,
-            Idade: document.getElementById('v_idade').value,
             IMC: imc,
-            Atividade_Dia: document.querySelector('input[name="neat"]:checked')?.value,
-            Treino_Semana: document.querySelector('input[name="treino"]:checked')?.value,
-            Comportamento: document.querySelector('input[name="comp"]:checked')?.value,
-            Sono: document.querySelector('input[name="sono"]:checked')?.value,
-            Agua: document.querySelector('input[name="agua"]:checked')?.value,
-            Refeicoes: document.querySelector('input[name="refeicoes"]:checked')?.value,
             Objetivo: document.querySelector('input[name="obj"]:checked')?.value,
             Trava: document.querySelector('input[name="trava"]:checked')?.value,
             Restricoes: saude.join(', ') + " " + (document.getElementById('v_qualSaude').value),
-            Preferencias: prefs.join(', '),
-            Evita: document.getElementById('v_evita').value
+            Preferencias: prefs.join(', ')
         };
-
         try {
             await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
@@ -356,7 +338,7 @@
             });
             showResult(dados.Nome, imc, dados);
         } catch (e) {
-            alert("Erro ao enviar. Tente novamente.");
+            alert("Erro ao enviar.");
             btn.disabled = false;
         }
     }
@@ -366,21 +348,10 @@
         document.getElementById('result-page').classList.remove('hidden');
         document.getElementById('resNome').innerText = "Olá, " + nome.split(' ')[0];
         document.getElementById('resIMC').innerText = imc;
-
         let cat = imc < 18.5 ? "Abaixo do Peso" : imc < 25 ? "Peso Saudável" : imc < 30 ? "Sobrepeso" : "Obesidade";
         document.getElementById('resCat').innerText = cat;
-
-        let insight = `Baseado no seu objetivo de ${dados.Objetivo}, identificamos que sua maior dificuldade hoje é "${dados.Trava}". <br><br>`;
-        
-        if (dados.Sono === 'Menos de 6h') insight += "⚠️ <strong>Alerta:</strong> Seu sono abaixo de 6h desregula os hormônios da fome e saciedade, o que explica possíveis impulsos alimentares. <br>";
-        if (dados.Comportamento === 'Noite') insight += "⚠️ <strong>Estratégia:</strong> Como você exagera à noite, nosso foco será redistribuir as calorias para que você chegue ao fim do dia com saciedade. <br>";
-        if (dados.Agua === '<1L') insight += "⚠️ <strong>Hidratação:</strong> Sua baixa ingestão de água pode estar sendo confundida com fome pelo seu cérebro. <br>";
-        
-        insight += "<br>Em breve entraremos em contato para montar o seu plano definitivo!";
-        
-        document.getElementById('resInsight').innerHTML = insight;
+        document.getElementById('resInsight').innerHTML = `Baseado no seu objetivo de ${dados.Objetivo}, identificamos que sua maior dificuldade hoje é "${dados.Trava}". <br><br> Em breve entraremos em contato para montar o seu plano definitivo!`;
     }
 </script>
-
 </body>
 </html>
