@@ -39,20 +39,13 @@
         .step.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* AJUSTE TELA INICIAL CENTRALIZADA E JUSTIFICADA */
         .intro-box { text-align: center; }
         .intro-icon { font-size: 40px; color: var(--accent); margin-bottom: 15px; }
         .intro-text { 
-            font-size: 14.5px; 
-            line-height: 1.7; 
-            color: #444; 
-            margin: 0 auto 30px; 
-            background: #f4f7f0; 
-            padding: 25px; 
-            border-radius: 20px; 
-            border-top: 3px solid var(--primary);
-            text-align: justify; /* Texto Interno Justificado */
-            max-width: 100%;
+            font-size: 14.5px; line-height: 1.7; color: #444; 
+            margin: 0 auto 30px; background: #f4f7f0; padding: 25px; 
+            border-radius: 20px; border-top: 3px solid var(--primary);
+            text-align: justify;
         }
 
         h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); margin: 0 0 15px; text-align: center; }
@@ -96,7 +89,7 @@
         </div>
 
         <div class="card">
-            <!-- TELA INICIAL AJUSTADA -->
+            <!-- TELA INICIAL -->
             <div class="step active" id="step0">
                 <div class="intro-box">
                     <div class="intro-icon"><i class="fa-solid fa-leaf"></i></div>
@@ -111,7 +104,7 @@
             </div>
 
             <form id="healthForm">
-                <!-- ETAPA 1: QUEM É VOCÊ -->
+                <!-- ETAPA 1 -->
                 <div class="step" id="step1">
                     <h2>Quem é você</h2>
                     <span class="label-head">Nome Completo</span>
@@ -127,7 +120,7 @@
                     </div>
                 </div>
 
-                <!-- ETAPA 2: CORPO HOJE -->
+                <!-- ETAPA 2 -->
                 <div class="step" id="step2">
                     <h2>Corpo hoje</h2>
                     <div style="display: flex; gap: 10px;">
@@ -141,14 +134,14 @@
                         </div>
                     </div>
 
-                    <span class="label-head">Nível de atividade no dia a dia</span>
+                    <span class="label-head">Atividade no dia a dia</span>
                     <div class="option-grid">
                         <label class="option-card"><input type="radio" name="neat" value="Sentado"> Maior parte do dia sentado</label>
                         <label class="option-card"><input type="radio" name="neat" value="Caminhando"> Em pé ou caminhando leve</label>
                         <label class="option-card"><input type="radio" name="neat" value="Braçal"> Trabalho braçal intenso</label>
                     </div>
 
-                    <span class="label-head">Frequência de treino na semana</span>
+                    <span class="label-head">Frequência de treino</span>
                     <div class="option-grid">
                         <label class="option-card"><input type="radio" name="treino" value="Não treino"> Não treino</label>
                         <label class="option-card"><input type="radio" name="treino" value="1-2x"> 1 a 2x por semana</label>
@@ -157,7 +150,7 @@
                     </div>
                 </div>
 
-                <!-- ETAPA 3: COMO SE SENTE -->
+                <!-- ETAPA 3 -->
                 <div class="step" id="step3">
                     <h2>Como se sente</h2>
                     <span class="label-head">Percepção hoje</span>
@@ -185,7 +178,7 @@
                     </div>
                 </div>
 
-                <!-- ETAPA 4: ROTINA E SAÚDE -->
+                <!-- ETAPA 4: ROTINA E SAÚDE ATUALIZADA -->
                 <div class="step" id="step4">
                     <h2>Rotina e Saúde</h2>
                     <span class="label-head">Água por dia</span>
@@ -206,14 +199,15 @@
                     <span class="label-head">Condições de saúde</span>
                     <div class="option-grid">
                         <label class="option-card"><input type="checkbox" name="saude" value="Nenhuma"> Nenhuma</label>
-                        <label class="option-card"><input type="checkbox" name="saude" value="Diabetes"> Diabetes / Glicemia alta</label>
-                        <label class="option-card"><input type="checkbox" name="saude" value="SOP"> SOP (Ovários Policísticos)</label>
-                        <label class="option-card"><input type="checkbox" name="saude" value="Outro" id="checkOutroSaude"> Outro</label>
+                        <label class="option-card"><input type="checkbox" name="saude" value="Diabetes"> Diabetes</label>
+                        <label class="option-card"><input type="checkbox" name="saude" value="Pressão alta"> Pressão alta</label>
+                        <label class="option-card"><input type="checkbox" name="saude" value="SOP"> SOP - Síndrome dos Ovários Policísticos</label>
+                        <label class="option-card"><input type="checkbox" name="saude" value="Outras" id="checkOutroSaude"> Outras</label>
                     </div>
                     <input type="text" class="input-premium hidden" id="v_qualSaude" placeholder="Qual outra condição?">
 
                     <span class="label-head">Preferência alimentar (Marque até 2)</span>
-                    <div class="option-grid" id="prefGroup">
+                    <div class="option-grid">
                         <label class="option-card"><input type="checkbox" name="pref" value="Comida Simples"> Comida simples</label>
                         <label class="option-card"><input type="checkbox" name="pref" value="Rápida"> Refeições rápidas</label>
                         <label class="option-card"><input type="checkbox" name="pref" value="Variar"> Gosto de variar</label>
@@ -224,7 +218,7 @@
                     <input type="text" class="input-premium" id="v_evita" placeholder="Ex: fígado, brócolis, jiló...">
                 </div>
 
-                <!-- ETAPA 5: SEU FOCO -->
+                <!-- ETAPA 5 -->
                 <div class="step" id="step5">
                     <h2>Seu Foco</h2>
                     <span class="label-head">Objetivo Principal</span>
@@ -253,18 +247,13 @@
         </div>
     </div>
 
-    <!-- RESULTADO -->
     <div id="result-page" class="hidden">
         <div class="card" style="text-align: center;">
             <span class="label-head" style="color: var(--primary);">Análise Preliminar</span>
             <h2 id="resNome">Paciente</h2>
             <div class="res-imc" id="resIMC">0.0</div>
             <div id="resCat" style="font-weight: 700; color: var(--accent); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">-</div>
-            
-            <div class="insight-box" id="resInsight">
-                Processando diagnóstico...
-            </div>
-
+            <div class="insight-box" id="resInsight">Processando...</div>
             <button class="btn btn-next" style="margin-top: 25px; width: 100%;" onclick="window.location.reload()">Refazer Avaliação</button>
         </div>
     </div>
@@ -326,9 +315,8 @@
             Nome: document.getElementById('v_nome').value,
             IMC: imc,
             Objetivo: document.querySelector('input[name="obj"]:checked')?.value,
-            Trava: document.querySelector('input[name="trava"]:checked')?.value,
-            Restricoes: saude.join(', ') + " " + (document.getElementById('v_qualSaude').value),
-            Preferencias: prefs.join(', ')
+            Saude: saude.join(', ') + " " + (document.getElementById('v_qualSaude').value),
+            Trava: document.querySelector('input[name="trava"]:checked')?.value
         };
         try {
             await fetch("https://api.web3forms.com/submit", {
@@ -350,7 +338,7 @@
         document.getElementById('resIMC').innerText = imc;
         let cat = imc < 18.5 ? "Abaixo do Peso" : imc < 25 ? "Peso Saudável" : imc < 30 ? "Sobrepeso" : "Obesidade";
         document.getElementById('resCat').innerText = cat;
-        document.getElementById('resInsight').innerHTML = `Baseado no seu objetivo de ${dados.Objetivo}, identificamos que sua maior dificuldade hoje é "${dados.Trava}". <br><br> Em breve entraremos em contato para montar o seu plano definitivo!`;
+        document.getElementById('resInsight').innerHTML = `Com base no seu objetivo de ${dados.Objetivo}, identificamos que sua maior trava hoje é "${dados.Trava}". <br><br> Em breve entraremos em contato para os próximos passos da sua jornada Cheios de Vida!`;
     }
 </script>
 </body>
