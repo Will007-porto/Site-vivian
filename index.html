@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <!-- ETAPA 2: ATUALIZADA -->
+                <!-- ETAPA 2 -->
                 <div class="step" id="step2">
                     <h2>Corpo hoje</h2>
                     <div style="display: flex; gap: 10px;">
@@ -142,7 +142,7 @@
                         <label class="option-card"><input type="radio" name="neat" value="Muito ativo"> Muito ativo — trabalho físico intenso ou esforço físico diário elevado</label>
                     </div>
 
-                    <span class="label-head">Frequência de treino</span>
+                    <span class="label-head">Frequência de treino na semana</span>
                     <div class="option-grid">
                         <label class="option-card"><input type="radio" name="treino" value="Não treino"> Não treino</label>
                         <label class="option-card"><input type="radio" name="treino" value="1 a 2x"> 1 a 2x por semana</label>
@@ -219,7 +219,7 @@
                     <input type="text" class="input-premium" id="v_evita" placeholder="Ex: fígado, brócolis, jiló...">
                 </div>
 
-                <!-- ETAPA 5 -->
+                <!-- ETAPA 5: ATUALIZADO TEXTO TRAVA -->
                 <div class="step" id="step5">
                     <h2>Seu Foco</h2>
                     <span class="label-head">Objetivo Principal</span>
@@ -233,7 +233,7 @@
 
                     <span class="label-head">O que mais te trava hoje?</span>
                     <div class="option-grid">
-                        <label class="option-card"><input type="radio" name="trava" value="Roupas"> Roupas não servem</label>
+                        <label class="option-card"><input type="radio" name="trava" value="Roupas"> Minhas roupas não servem mais</label>
                         <label class="option-card"><input type="radio" name="trava" value="Cansaço"> Cansaço sem motivo</label>
                         <label class="option-card"><input type="radio" name="trava" value="Efeito Sanfona"> Efeito sanfona</label>
                         <label class="option-card"><input type="radio" name="trava" value="Constância"> Falta de constância</label>
@@ -358,9 +358,7 @@
         document.getElementById('resIMC').innerText = imc;
         let cat = imc < 18.5 ? "Abaixo do Peso" : imc < 25 ? "Peso Saudável" : imc < 30 ? "Sobrepeso" : "Obesidade";
         document.getElementById('resCat').innerText = cat;
-        let insight = `Com base no seu objetivo de ${dados.Objetivo_Principal}, sua maior dificuldade hoje é "${dados.O_Que_Trava}". <br><br>`;
-        if (dados.Sono_Medio.includes('Menos')) insight += "⚠️ <strong>Dica:</strong> Seu sono reduzido pode estar afetando sua regulação de fome. <br>";
-        insight += "<br>Em breve entraremos em contato!";
+        let insight = `Com base no seu objetivo de ${dados.Objetivo_Principal}, sua maior dificuldade hoje é "${dados.O_Que_Trava}". <br><br> Em breve entraremos em contato para os próximos passos da sua jornada Cheios de Vida!`;
         document.getElementById('resInsight').innerHTML = insight;
     }
 </script>
